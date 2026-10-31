@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Portal independiente de orientación informativa para clientes sobre pedidos, envíos, consultas y compras de electrodomésticos.">
+  <meta name="theme-color" content="#101a3a">
+  <title>Oficina Virtual Colombia | Guía Informativa</title>
+  <style>
+    :root {
+      --navy: #101a3a;
+      --blue: #2457d6;
+      --cyan: #22c7d9;
+      --orange: #ff9b42;
+      --ink: #17213d;
+      --muted: #66718b;
+      --light: #f4f7ff;
+      --white: #fff;
+      --line: #e5eaf5;
+      --shadow: 0 18px 55px rgba(16, 26, 58, .12);
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      color: var(--ink);
+      background: #f7f9ff;
+      line-height: 1.65;
+    }
+    a { color: inherit; text-decoration: none; }
+    .topbar {
+      background: var(--navy); color: #dce7ff; text-align: center;
+      padding: 9px 16px; font-size: .86rem;
+    }
+    header {
+      position: sticky; top: 0; z-index: 20;
+      background: rgba(255,255,255,.94); backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--line);
+    }
+    .nav {
+      max-width: 1160px; margin: auto; padding: 15px 22px;
+      display: flex; align-items: center; justify-content: space-between; gap: 22px;
+    }
+    .brand { display: flex; align-items: center; gap: 11px; font-weight: 800; color: var(--navy); }
+    .brand-mark {
+      width: 42px; height: 42px; display: grid; place-items: center;
+      color: white; border-radius: 14px; font-size: 1.2rem;
+      background: linear-gradient(135deg, var(--blue), var(--cyan));
+      box-shadow: 0 8px 20px rgba(36,87,214,.22);
+    }
+    .brand small { display: block; color: var(--muted); font-weight: 600; font-size: .68rem; letter-spacing: .08em; }
+    .navlinks { display: flex; align-items: center; gap: 23px; font-size: .92rem; font-weight: 700; color: #46516d; }
+    .navlinks a:hover { color: var(--blue); }
+    .menu-btn { display: none; border: 0; background: var(--light); padding: 9px 12px; border-radius: 10px; font-size: 1.2rem; }
+    .hero {
+      overflow: hidden; position: relative; color: white;
+      background: radial-gradient(circle at 85% 20%, rgba(34,199,217,.45), transparent 28%),
+                  radial-gradient(circle at 10% 90%, rgba(255,155,66,.22), transparent 30%),
+                  linear-gradient(125deg, #101a3a 0%, #173b86 58%, #176b9b 100%);
+    }
+    .hero:after {
+      content: ""; position: absolute; width: 390px; height: 390px; border: 1px solid rgba(255,255,255,.13);
+      border-radius: 50%; right: -120px; bottom: -220px; box-shadow: 0 0 0 38px rgba(255,255,255,.035), 0 0 0 78px rgba(255,255,255,.025);
+    }
+    .hero-inner {
+      max-width: 1160px; margin: auto; padding: 92px 22px 100px;
+      display: grid; grid-template-columns: 1.2fr .8fr; gap: 55px; align-items: center; position: relative; z-index: 1;
+    }
+    .eyebrow {
+      display: inline-flex; gap: 8px; align-items: center; border: 1px solid rgba(255,255,255,.25);
+      background: rgba(255,255,255,.1); padding: 7px 13px; border-radius: 30px;
+      font-size: .8rem; font-weight: 700; letter-spacing: .04em; margin-bottom: 22px;
+    }
+    h1 { font-size: clamp(2.35rem, 5vw, 4.2rem); line-height: 1.08; letter-spacing: -.04em; margin-bottom: 22px; }
+    .hero p { color: #dce8ff; font-size: 1.08rem; max-width: 650px; margin-bottom: 28px; }
+    .hero-actions { display: flex; flex-wrap: wrap; gap: 12px; }
+    .btn {
+      display: inline-flex; justify-content: center; align-items: center; gap: 9px;
+      padding: 13px 19px; border-radius: 12px; font-weight: 800; transition: .2s;
+    }
+    .btn-primary { color: var(--navy); background: white; }
+    .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 10px 25px rgba(0,0,0,.16); }
+    .btn-ghost { border: 1px solid rgba(255,255,255,.35); color: white; }
+    .hero-panel {
+      background: rgba(255,255,255,.11); border: 1px solid rgba(255,255,255,.2);
+      backdrop-filter: blur(10px); border-radius: 25px; padding: 27px; box-shadow: 0 20px 55px rgba(0,0,0,.12);
+    }
+    .hero-panel h3 { font-size: 1.15rem; margin-bottom: 16px; }
+    .hero-item { display: flex; gap: 13px; align-items: flex-start; padding: 13px 0; border-bottom: 1px solid rgba(255,255,255,.15); }
+    .hero-item:last-child { border: 0; }
+    .hero-icon { width: 35px; height: 35px; display: grid; place-items: center; flex: 0 0 35px; background: rgba(255,255,255,.15); border-radius: 11px; }
+    .hero-item strong { display: block; font-size: .94rem; }
+    .hero-item span:last-child { display: block; color: #d6e5ff; font-size: .82rem; }
+    section { padding: 78px 22px; }
+    .container { max-width: 1160px; margin: auto; }
+    .section-head { max-width: 720px; margin: 0 auto 42px; text-align: center; }
+    .kicker { color: var(--blue); text-transform: uppercase; letter-spacing: .13em; font-size: .75rem; font-weight: 900; margin-bottom: 10px; }
+    h2 { color: var(--navy); font-size: clamp(1.8rem, 3.5vw, 2.7rem); line-height: 1.16; margin-bottom: 13px; letter-spacing: -.025em; }
+    .section-head p { color: var(--muted); }
+    .cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+    .card {
+      background: white; border: 1px solid var(--line); border-radius: 19px; padding: 25px;
+      box-shadow: 0 8px 28px rgba(21,42,89,.045); transition: .25s;
+    }
+    .card:hover { transform: translateY(-5px); box-shadow: var(--shadow); }
+    .card-icon {
+      width: 49px; height: 49px; border-radius: 15px; display: grid; place-items: center;
+      font-size: 1.35rem; margin-bottom: 17px;
+      background: linear-gradient(135deg, #e9efff, #e2fbff);
+    }
+    .card h3 { color: var(--navy); font-size: 1.08rem; margin-bottom: 9px; }
+    .card p { color: var(--muted); font-size: .93rem; }
+    .notice {
+      background: linear-gradient(120deg, #fff7ed, #fff);
+      border: 1px solid #ffe2c2; border-left: 5px solid var(--orange);
+      padding: 20px 22px; border-radius: 14px; color: #70451e; margin-top: 27px;
+    }
+    .about-grid { display: grid; grid-template-columns: .9fr 1.1fr; gap: 50px; align-items: center; }
+    .about-visual {
+      min-height: 340px; border-radius: 25px; padding: 30px; color: white;
+      display: flex; flex-direction: column; justify-content: flex-end;
+      background: radial-gradient(circle at 20% 20%, rgba(34,199,217,.65), transparent 35%),
+                  linear-gradient(145deg, #13214a, #2457d6);
+      box-shadow: var(--shadow);
+    }
+    .about-visual .big { font-size: 4rem; margin-bottom: 10px; }
+    .about-visual h3 { font-size: 1.55rem; line-height: 1.2; max-width: 320px; }
+    .about-copy p { color: var(--muted); margin: 12px 0 18px; }
+    .check-list { list-style: none; display: grid; gap: 11px; margin-top: 20px; }
+    .check-list li { display: flex; gap: 10px; color: #35415f; font-weight: 700; }
+    .check-list li:before { content: "✓"; color: #0a9e9a; font-weight: 900; }
+    .steps { display: grid; grid-template-columns: repeat(4, 1fr); gap: 15px; counter-reset: step; }
+    .step { background: white; border: 1px solid var(--line); padding: 22px; border-radius: 17px; }
+    .step:before {
+      counter-increment: step; content: "0" counter(step); display: block; color: var(--blue);
+      font-weight: 900; font-size: 1.4rem; margin-bottom: 14px;
+    }
+    .step h3 { font-size: 1rem; color: var(--navy); margin-bottom: 7px; }
+    .step p { color: var(--muted); font-size: .88rem; }
+    .policy-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+    .policy {
+      background: white; border: 1px solid var(--line); border-radius: 17px; padding: 24px;
+    }
+    .policy h3 { color: var(--navy); margin-bottom: 9px; }
+    .policy p { color: var(--muted); font-size: .92rem; }
+    .contact-band {
+      background: linear-gradient(120deg, #101a3a, #1d4aa7); color: white;
+      border-radius: 24px; padding: 36px; display: flex; align-items: center; justify-content: space-between; gap: 25px;
+    }
+    .contact-band h2 { color: white; font-size: 1.8rem; }
+    .contact-band p { color: #dce7ff; max-width: 650px; }
+    footer { background: #0c1430; color: #d1d9ed; padding: 42px 22px 25px; }
+    .footer-inner { max-width: 1160px; margin: auto; display: grid; grid-template-columns: 1.4fr 1fr 1fr; gap: 35px; }
+    footer h3 { color: white; margin-bottom: 13px; font-size: 1rem; }
+    footer p, footer a { color: #aebbd8; font-size: .88rem; }
+    footer a:hover { color: white; }
+    .footer-links { display: grid; gap: 8px; }
+    .copyright { max-width: 1160px; margin: 30px auto 0; border-top: 1px solid rgba(255,255,255,.12); padding-top: 18px; color: #8795b5; font-size: .8rem; }
+    .cookie-banner {
+      position: fixed; z-index: 50; left: 20px; right: 20px; bottom: 20px; max-width: 950px; margin: auto;
+      display: none; background: white; border: 1px solid var(--line); border-radius: 17px;
+      padding: 19px; box-shadow: 0 18px 60px rgba(0,0,0,.2);
+    }
+    .cookie-banner.show { display: block; }
+    .cookie-row { display: flex; align-items: center; gap: 20px; justify-content: space-between; }
+    .cookie-banner h3 { color: var(--navy); font-size: 1rem; margin-bottom: 4px; }
+    .cookie-banner p { color: var(--muted); font-size: .84rem; }
+    .cookie-actions { display: flex; gap: 8px; flex-wrap: wrap; }
+    .cookie-actions button {
+      border: 0; cursor: pointer; border-radius: 9px; padding: 10px 13px; font-weight: 800;
+      background: var(--light); color: var(--navy);
+    }
+    .cookie-actions .accept { color: white; background: var(--blue); }
+    .smallprint { font-size: .8rem; color: var(--muted); }
+    @media (max-width: 850px) {
+      .hero-inner, .about-grid { grid-template-columns: 1fr; }
+      .hero-inner { padding-top: 65px; }
+      .cards { grid-template-columns: repeat(2, 1fr); }
+      .steps { grid-template-columns: repeat(2, 1fr); }
+      .footer-inner { grid-template-columns: 1fr 1fr; }
+      .navlinks { display: none; position: absolute; left: 0; right: 0; top: 72px; background: white; padding: 20px 25px; border-bottom: 1px solid var(--line); flex-direction: column; align-items: flex-start; }
+      .navlinks.open { display: flex; }
+      .menu-btn { display: block; }
+    }
+    @media (max-width: 560px) {
+      section { padding: 58px 17px; }
+      .cards, .steps, .policy-grid, .footer-inner { grid-template-columns: 1fr; }
+      .contact-band, .cookie-row { flex-direction: column; align-items: flex-start; }
+      .cookie-banner { left: 10px; right: 10px; bottom: 10px; }
+      .hero-inner { padding-left: 18px; padding-right: 18px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="topbar">Portal independiente de orientación informativa · Colombia</div>
+
+  <header>
+    <nav class="nav" aria-label="Navegación principal">
+      <a class="brand" href="#inicio">
+        <span class="brand-mark">i</span>
+        <span>OFICINA VIRTUAL COLOMBIA<small>GUÍA INFORMATIVA INDEPENDIENTE</small></span>
+      </a>
+      <button class="menu-btn" id="menuBtn" aria-label="Abrir menú" aria-expanded="false">☰</button>
+      <div class="navlinks" id="navLinks">
+        <a href="#inicio">Inicio</a>
+        <a href="#orientacion">Orientación</a>
+        <a href="#nosotros">Quiénes somos</a>
+        <a href="#proceso">Cómo funciona</a>
+        <a href="#politicas">Políticas</a>
+        <a href="#contacto">Contacto</a>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero" id="inicio">
+      <div class="hero-inner">
+        <div>
+          <div class="eyebrow">✦ INFORMACIÓN CLARA Y ORIENTACIÓN</div>
+          <h1>Te ayudamos a encontrar el camino correcto.</h1>
+          <p>Somos un espacio de orientación informativa para personas que necesitan comprender cómo consultar un pedido, resolver dudas sobre entregas o encontrar los canales oficiales de atención de un proveedor.</p>
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="#orientacion">Conocer la orientación <span>→</span></a>
+            <a class="btn btn-ghost" href="#contacto">Información de contacto</a>
+          </div>
+        </div>
+        <aside class="hero-panel">
+          <h3>¿En qué podemos orientarte?</h3>
+          <div class="hero-item"><span class="hero-icon">📦</span><div><strong>Consultas sobre pedidos</strong><span>Información general para saber dónde y cómo consultar.</span></div></div>
+          <div class="hero-item"><span class="hero-icon">🚚</span><div><strong>Dudas sobre entregas</strong><span>Guía para identificar el canal oficial del proveedor.</span></div></div>
+          <div class="hero-item"><span class="hero-icon">🧾</span><div><strong>Solicitudes y reclamos</strong><span>Orientación general para presentar una consulta.</span></div></div>
+          <div class="hero-item"><span class="hero-icon">🏠</span><div><strong>Información de productos</strong><span>Consejos generales para informarte antes de comprar.</span></div></div>
+        </aside>
+      </div>
+    </section>
+
+    <section id="orientacion">
+      <div class="container">
+        <div class="section-head">
+          <div class="kicker">Nuestros temas de orientación</div>
+          <h2>Información útil para tomar mejores decisiones</h2>
+          <p>Compartimos orientación general. No reemplazamos la atención oficial de tiendas, transportadoras, fabricantes ni entidades de protección al consumidor.</p>
+        </div>
+        <div class="cards">
+          <article class="card"><div class="card-icon">📦</div><h3>Pedidos y compras</h3><p>Te orientamos sobre los datos que normalmente necesitas para consultar una compra directamente con el comercio donde realizaste el pedido.</p></article>
+          <article class="card"><div class="card-icon">🚚</div><h3>Envíos y entregas</h3><p>Información general para identificar el operador logístico y revisar los canales oficiales de seguimiento que tenga habilitados el proveedor.</p></article>
+          <article class="card"><div class="card-icon">⏱️</div><h3>Retrasos o novedades</h3><p>Te explicamos qué información conviene tener a mano y cómo dirigir una consulta al vendedor o transportador correspondiente.</p></article>
+          <article class="card"><div class="card-icon">📝</div><h3>Peticiones y reclamos</h3><p>Orientación general sobre cómo organizar los datos de tu caso y dónde consultar el procedimiento oficial para presentar una solicitud.</p></article>
+          <article class="card"><div class="card-icon">🧺</div><h3>Electrodomésticos</h3><p>Contenido informativo general para comparar características, revisar recomendaciones de uso y consultar condiciones directamente con el vendedor.</p></article>
+          <article class="card"><div class="card-icon">🔎</div><h3>Canales oficiales</h3><p>Recomendaciones para verificar que estás utilizando páginas, teléfonos y medios de atención publicados por la empresa correspondiente.</p></article>
+        </div>
+        <div class="notice"><strong>Importante:</strong> esta página ofrece únicamente orientación informativa. No vende productos, no recibe pagos, no tramita créditos, no administra pedidos y no puede modificar ni garantizar fechas de entrega.</div>
+      </div>
+    </section>
+
+    <section id="nosotros" style="background:#fff">
+      <div class="container about-grid">
+        <div class="about-visual">
+          <div class="big">💡</div>
+          <h3>Orientación sencilla, transparente y responsable.</h3>
+        </div>
+        <div class="about-copy">
+          <div class="kicker">Quiénes somos</div>
+          <h2>Un espacio informativo para guiarte.</h2>
+          <p>Oficina Virtual Colombia es un portal independiente cuyo propósito es compartir información general y orientar a los usuarios sobre los pasos que pueden seguir cuando tienen dudas relacionadas con pedidos, envíos, compras y atención al cliente.</p>
+          <p>Nuestra función es informativa. La respuesta definitiva sobre una compra, garantía, devolución, pago o entrega debe solicitarse directamente a la empresa con la que se realizó la operación.</p>
+          <ul class="check-list">
+            <li>Información general y explicada de forma sencilla.</li>
+            <li>Recomendaciones para acudir a canales oficiales.</li>
+            <li>Transparencia sobre el alcance de nuestra orientación.</li>
+            <li>Respeto por la privacidad de los visitantes.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section id="proceso">
+      <div class="container">
+        <div class="section-head">
+          <div class="kicker">Guía paso a paso</div>
+          <h2>¿Cómo puedes proceder?</h2>
+          <p>Estos pasos son recomendaciones generales. El proceso puede variar según el comercio o proveedor involucrado.</p>
+        </div>
+        <div class="steps">
+          <article class="step"><h3>Identifica tu proveedor</h3><p>Revisa el nombre de la tienda, empresa o plataforma donde realizaste la compra.</p></article>
+          <article class="step"><h3>Reúne la información</h3><p>Ten a mano el número de pedido, comprobante y fecha de compra. No compartas claves ni datos bancarios.</p></article>
+          <article class="step"><h3>Consulta el canal oficial</h3><p>Ingresa al sitio o medio de atención publicado oficialmente por el proveedor.</p></article>
+          <article class="step"><h3>Conserva la respuesta</h3><p>Guarda los números de radicado, correos y comunicaciones relacionados con tu solicitud.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section id="politicas" style="background:#fff">
+      <div class="container">
+        <div class="section-head">
+          <div class="kicker">Transparencia y confianza</div>
+          <h2>Información legal y políticas</h2>
+          <p>Lee el alcance de este portal y las recomendaciones para utilizarlo de manera segura.</p>
+        </div>
+        <div class="policy-grid">
+          <article class="policy"><h3>Alcance del servicio</h3><p>El contenido de este sitio es exclusivamente informativo y orientativo. No somos vendedores, fabricantes, transportadores, entidades financieras ni representantes de las empresas mencionadas. No tenemos acceso a sistemas internos de pedidos ni podemos confirmar estados de compra o envío.</p></article>
+          <article class="policy"><h3>Independencia y afiliaciones</h3><p>Este portal es independiente y no debe entenderse como una página oficial del Gobierno de Colombia, de bancos, comercios, marcas o empresas de transporte. Cualquier nombre comercial de terceros se menciona únicamente con fines informativos. No afirmamos tener afiliación o autorización de dichas entidades.</p></article>
+          <article class="policy"><h3>Privacidad y datos personales</h3><p>Utiliza este portal sin compartir información sensible. No solicitamos contraseñas, códigos de verificación, números completos de tarjetas, claves bancarias ni pagos. Si habilitas un formulario de contacto, publica aquí una política de tratamiento de datos real que identifique al responsable, finalidades, derechos del titular y canal para consultas o reclamos, conforme a la normativa aplicable en Colombia.</p></article>
+          <article class="policy"><h3>Cookies y tecnologías</h3><p>Este archivo no incorpora herramientas publicitarias ni analíticas de terceros. El aviso de cookies guarda únicamente tu elección en el almacenamiento local del navegador. Si posteriormente instalas Google Analytics, Google Ads u otras tecnologías no esenciales, debes implementar el mecanismo de consentimiento y bloqueo correspondiente antes de activarlas cuando sea exigible.</p></article>
+          <article class="policy"><h3>Responsabilidad de terceros</h3><p>Las compras, pagos, garantías, cambios, devoluciones, financiación y entregas son responsabilidad del proveedor con el que el usuario contrate. Los tiempos y condiciones dependen de cada empresa. Recomendamos verificar siempre la información directamente con la fuente oficial.</p></article>
+          <article class="policy"><h3>Uso adecuado del sitio</h3><p>El visitante se compromete a utilizar la información de forma responsable y a verificar su vigencia con el proveedor correspondiente. El contenido puede cambiar y no constituye asesoría legal, financiera ni una garantía de resultado.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section id="contacto">
+      <div class="container">
+        <div class="contact-band">
+          <div>
+            <div class="kicker" style="color:#8feaf2">Contacto e información</div>
+            <h2>¿Tienes una pregunta general?</h2>
+            <p>Para consultas sobre una compra o entrega específica, comunícate directamente con el comercio o empresa responsable. Para información sobre este portal, utiliza los datos de contacto reales que se publiquen aquí.</p>
+          </div>
+          <a class="btn btn-primary" href="mailto:CONTACTO@TUDOMINIO.COM">Escribir un correo →</a>
+        </div>
+        <p class="smallprint" style="margin-top:14px">Antes de publicar: reemplaza CONTACTO@TUDOMINIO.COM por un correo real bajo tu control. No publiques datos de otra persona sin su autorización.</p>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+      <div>
+        <h3>Oficina Virtual Colombia</h3>
+        <p>Portal independiente de orientación informativa para usuarios. Nuestro contenido busca facilitar la comprensión de procesos y dirigir a los visitantes hacia los canales oficiales correspondientes.</p>
+      </div>
+      <div>
+        <h3>Explorar</h3>
+        <div class="footer-links">
+          <a href="#orientacion">Temas de orientación</a>
+          <a href="#nosotros">Quiénes somos</a>
+          <a href="#proceso">Cómo funciona</a>
+          <a href="#politicas">Políticas</a>
+        </div>
+      </div>
+      <div>
+        <h3>Información de contacto</h3>
+        <div class="footer-links">
+          <a href="mailto:CONTACTO@TUDOMINIO.COM">OFCINAVIRTUAL@GMAIL.COM</a>
+          <span class="smallprint">Responsable del sitio: [OFICINA VIRTUAL COLOMBIA]</span>
+          <span class="smallprint">Domicilio: [BARRANQUILLA, COLOMBIA]</span>
+        </div>
+      </div>
+    </div>
+    <div class="copyright">© <span id="year"></span> Oficina Virtual Colombia. Sitio independiente de carácter informativo. Todos los derechos reservados.</div>
+  </footer>
+
+  <div class="cookie-banner" id="cookieBanner" role="dialog" aria-label="Aviso de almacenamiento local">
+    <div class="cookie-row">
+      <div>
+        <h3>Preferencias de almacenamiento</h3>
+        <p>Este sitio utiliza almacenamiento local para recordar tu elección sobre este aviso. No se activan cookies publicitarias ni herramientas de seguimiento de terceros en esta plantilla.</p>
+      </div>
+      <div class="cookie-actions">
+        <button class="accept" id="acceptCookies">Aceptar</button>
+        <button id="rejectCookies">Rechazar</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const menuBtn = document.getElementById('menuBtn');
+    const navLinks = document.getElementById('navLinks');
+
+    menuBtn.addEventListener('click', () => {
+      const isOpen = navLinks.classList.toggle('open');
+      menuBtn.setAttribute('aria-expanded', String(isOpen));
+    });
+
+    navLinks.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        navLinks.classList.remove('open');
+        menuBtn.setAttribute('aria-expanded', 'false');
+      });
+    });
+
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    const cookieBanner = document.getElementById('cookieBanner');
+    const cookieChoice = localStorage.getItem('ovc_cookie_notice');
+    if (!cookieChoice) cookieBanner.classList.add('show');
+
+    function saveCookieChoice(choice) {
+      localStorage.setItem('ovc_cookie_notice', choice);
+      cookieBanner.classList.remove('show');
+    }
+    document.getElementById('acceptCookies').addEventListener('click', () => saveCookieChoice('accepted'));
+    document.getElementById('rejectCookies').addEventListener('click', () => saveCookieChoice('rejected'));
+  </script>
+</body>
+</html>
